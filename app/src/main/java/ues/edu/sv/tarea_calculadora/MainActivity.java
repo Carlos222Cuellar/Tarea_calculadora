@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     //metodos para escribir el numero de cada boton que se presione en la calculadora y mostrarlo en pantalla
     public void escribirUno(View view) {
         float valor = Float.parseFloat(txtResultado.getText().toString());
-        if(valor == 0.0f || valor == numero1 || valor == resultado1){
+        if(valor == 0.0f || valor == numero1 || valor == limitarDecimales(resultado1)){
             /*como lo que quiero es poder escribir 0.1,0.2, etc cree un array con todos los posibles casos
             * luego convierto el string de array en una lista para poder usar el metodo de contains
             * para saber si el texto de la pantalla de la calculadora cumple con algunos de los caos del
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void escribirDos(View view) {
         float valor = Float.parseFloat(txtResultado.getText().toString());
-        if(valor == 0.0f || valor == numero1 || valor == resultado1){
+        if(valor == 0.0f || valor == numero1 || valor == limitarDecimales(resultado1)){
             if(Arrays.asList(decimales).contains(txtResultado.getText())){
                 txtResultado.setText(txtResultado.getText() + "2");
             }
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void escribirTres(View view) {
         float valor = Float.parseFloat(txtResultado.getText().toString());
-        if(valor == 0.0f || valor == numero1 || valor == resultado1){
+        if(valor == 0.0f || valor == numero1 || valor == limitarDecimales(resultado1)){
             if(Arrays.asList(decimales).contains(txtResultado.getText())){
                 txtResultado.setText(txtResultado.getText() + "3");
             }
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void escribirCuatro(View view) {
         float valor = Float.parseFloat(txtResultado.getText().toString());
-        if(valor == 0.0f || valor == numero1 || valor == resultado1){
+        if(valor == 0.0f || valor == numero1 || valor == limitarDecimales(resultado1)){
             if(Arrays.asList(decimales).contains(txtResultado.getText())){
                 txtResultado.setText(txtResultado.getText() + "4");
             }
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void escribirCinco(View view) {
         float valor = Float.parseFloat(txtResultado.getText().toString());
-        if(valor == 0.0f || valor == numero1 || valor == resultado1){
+        if(valor == 0.0f || valor == numero1 || valor == limitarDecimales(resultado1)){
             if(Arrays.asList(decimales).contains(txtResultado.getText())){
                 txtResultado.setText(txtResultado.getText() + "5");
             }
@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void escribirSeis(View view) {
         float valor = Float.parseFloat(txtResultado.getText().toString());
-        if(valor == 0.0f || valor == numero1 || valor == resultado1){
+        if(valor == 0.0f || valor == numero1 || valor == limitarDecimales(resultado1)){
             if(Arrays.asList(decimales).contains(txtResultado.getText())){
                 txtResultado.setText(txtResultado.getText() + "6");
             }
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void escribirSiete(View view) {
         float valor = Float.parseFloat(txtResultado.getText().toString());
-        if(valor == 0.0f || valor == numero1 || valor == resultado1){
+        if(valor == 0.0f || valor == numero1 || valor == limitarDecimales(resultado1)){
             if(Arrays.asList(decimales).contains(txtResultado.getText())){
                 txtResultado.setText(txtResultado.getText() + "7");
             }
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void escribirOcho(View view) {
         float valor = Float.parseFloat(txtResultado.getText().toString());
-        if(valor == 0.0f || valor == numero1 || valor == resultado1){
+        if(valor == 0.0f || valor == numero1 || valor == limitarDecimales(resultado1)){
             if(Arrays.asList(decimales).contains(txtResultado.getText())){
                 txtResultado.setText(txtResultado.getText() + "8");
             }
@@ -250,13 +250,14 @@ public class MainActivity extends AppCompatActivity {
                 txtResultado.setText("8");
             }
         }else{
+
             txtResultado.setText(txtResultado.getText() + "8");
         }
     }
 
     public void escribirNueve(View view) {
         float valor = Float.parseFloat(txtResultado.getText().toString());
-        if(valor == 0.0f || valor == numero1 || valor == resultado1){
+        if(valor == 0.0f || valor == numero1 || valor == limitarDecimales(resultado1)){
             if(Arrays.asList(decimales).contains(txtResultado.getText())){
                 txtResultado.setText(txtResultado.getText() + "9");
             }
@@ -270,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void escribirCero(View view) {
         float valor = Float.parseFloat(txtResultado.getText().toString());
-        if(valor == 0 || valor == numero1 || valor == resultado1){
+        if(valor == 0 || valor == numero1 || valor == limitarDecimales(resultado1)){
             if(Arrays.asList(decimales).contains(txtResultado.getText())){
                 txtResultado.setText(txtResultado.getText() + "0");
             }
@@ -348,8 +349,8 @@ public class MainActivity extends AppCompatActivity {
                 result = numero1 / numero2;
                 resultado = limitarDecimales(result);
             }else{
-                result = 0.0f;
-                Toast.makeText(this, "OPERACION NO VALIDA", Toast.LENGTH_LONG).show();
+                resultado = 0.0f;
+                Toast.makeText(this, "OPERACION NO VALIDA: NO se puede dividir entre cero", Toast.LENGTH_LONG).show();
             }
         }else if(operacion.equals("*")){
             resultado = numero1 * numero2;
@@ -359,8 +360,14 @@ public class MainActivity extends AppCompatActivity {
         }else if(operacion.equals("+")){
             resultado = numero1 + numero2;
         }else if(operacion.equals("^")){
-            result = (float) Math.pow(numero1,numero2);
-            resultado = limitarDecimales(result);
+            if(numero2 == 0.0f){
+                resultado = 0.0f;
+                Toast.makeText(this, "OPERACION NO VALIDA", Toast.LENGTH_LONG).show();
+
+            }else {
+                result = (float) Math.pow(numero1, numero2);
+                resultado = limitarDecimales(result);
+            }
         }else if(operacion.equals("")){
             resultado = Float.parseFloat(String.valueOf(txtResultado.getText()));
         }
@@ -380,18 +387,25 @@ public class MainActivity extends AppCompatActivity {
 
     //operacion para sacar la raiz cuadrada de un numero
     public void operacionRaiz(View view) {
+        resultado1=0.0f;
         double result;
         float resultado;
         numero1 = Float.parseFloat(String.valueOf(txtResultado.getText()));
-        if(numero1 >= 0) {
+        if(numero1 > 0) {
             result = Math.sqrt(numero1);
             resultado = limitarDecimales((float)result);
         }else{
             resultado = 0.0f;
-            Toast.makeText(this, "OPERACION NO VALIDA", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "OPERACION NO VALIDA: No se puede sacar raiz a numeros negativos", Toast.LENGTH_LONG).show();
         }
-        txtResultado.setText(resultado + "");
+
+        if(resultado == 0.0f){
+            txtResultado.setText("0");
+        } else {
+            txtResultado.setText(resultado + "");
+        }
         numero1 = 0.0f;
+        resultado1=resultado;
 
     }
 
