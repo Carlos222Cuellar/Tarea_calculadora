@@ -11,6 +11,13 @@ import java.math.*; //importamos la libreria para la raiz cuadrada y el exponenc
 import java.text.DecimalFormat;
 import java.util.Arrays;
 
+/*
+* Alumno: Carlos Mauricio Cuellar Rodríguez
+* Carnet: CR14008
+* Calculadora básica hecha para la materia Introducción a las aplicaciones móviles Fmocc ciclo I-2021
+* Catedrático: Ing. Carlos Ruano.
+* */
+
 public class MainActivity extends AppCompatActivity {
     //declaracion de todas las variables que vamos usar en el programa entre estos los botones, numeros, resultado, etc.
     Button boton1;
